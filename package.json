@@ -4,9 +4,17 @@
   "description": "This is a project you can walk through commit-by-commit to see the transformation of JavaScript code to TypeScript.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build:w": "tsc -w"
   },
-  "keywords": ["javascript", "typescript"],
+  "keywords": [
+    "javascript",
+    "typescript"
+  ],
   "author": "Jeremy Likness (@JeremyLikness)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.1.1"
+  }
 }
