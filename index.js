@@ -1,4 +1,3 @@
-"use strict";
 function delay(fn) {
     setTimeout(fn, 0);
 }
@@ -22,7 +21,11 @@ Contact.prototype.print = function () {
     }
     console.log(this.contactNumber);
 };
-function ContactList(contacts) {
+function ContactList() {
+    var contacts = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        contacts[_i] = arguments[_i];
+    }
     this.contacts = contacts;
 }
 ContactList.prototype.print = function () {

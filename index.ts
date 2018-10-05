@@ -25,7 +25,7 @@ Contact.prototype.print = function () {
     console.log(this.contactNumber);
 }
 
-function ContactList(contacts) {
+function ContactList(...contacts) {
     this.contacts = contacts;
 }
 
