@@ -1,0 +1,12 @@
+{
+  "name": "typescript-from-javascript",
+  "version": "1.0.0",
+  "description": "This is a project you can walk through commit-by-commit to see the transformation of JavaScript code to TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["javascript", "typescript"],
+  "author": "Jeremy Likness (@JeremyLikness)",
+  "license": "MIT"
+}
