@@ -74,4 +74,12 @@ Before this is addressed, take a look at the compiled `index.js`. Compare to the
 
 ## Refactor to "real" classes
 
+`git checkout c39795a`
+
 TypeScript supports a class definition. For older JavaScript, it will generate the appropriate code to "wrap" the class behavior. For newer JavaScript it will generate the native class keyword. The `Contact` and `ContactList` entities are refactored to a class. The constructor is the same as the original function call, with the difference that the parameters are declared `public` and given types. This implicitly creates the properties on the class and moves the constructor parameters to the properties. The generated JavaScript isn't available yet, because a bug has already been identified.
+
+## Fix Two Bugs
+
+The first bug is a naming issue. The class defines a property called `phoneNumber` but the print method references `contactNumber`. Change the property to `contactNumber` to be consistent with `contactType`.
+
+Next, create a type called `Phone` that allows a value of either `mobile` or `home`. Change the `contactType` to be of type `Phone` and fix several more defects. Now when you compile and run it should print as expected, except for the debug information.

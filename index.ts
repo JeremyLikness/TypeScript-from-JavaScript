@@ -6,12 +6,14 @@ delay(function() {
     console.log("\n\nDEBUG INFO:");
 });
 
+type Phone = 'home' | 'mobile';
+
 class Contact {
     constructor(
         public name: string, 
         public age: number, 
-        public contactType: string, 
-        public phoneNumber: string) {}
+        public contactType: Phone, 
+        public contactNumber: string) {}
 
     print() {
         console.log(this.name);
@@ -44,7 +46,7 @@ class ContactList {
     }
 }
 
-const me = new Contact("Jeremy", 44.1, "Mobile", "555-1212");
-const myWife = new Contact("Doreen", 30, "Home", "404-123-4567");
+const me = new Contact("Jeremy", 44.1, "mobile", "555-1212");
+const myWife = new Contact("Doreen", 30, "home", "404-123-4567");
 const rolodex = new ContactList(me, myWife);
 rolodex.print();
