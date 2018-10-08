@@ -119,6 +119,8 @@ else {
 
 ## The Power of Generics
 
+`git checkout 14769c5`
+
 Generics help by creating a template for a type, then providing hints and type-checking for that type. To see this in action, refactor the `find` function to use generics. Immediately a bug is revealed.
 
 ```TypeScript
@@ -131,3 +133,7 @@ const find = <T>(list: T[], test: (item: T) => boolean) => {
     return null;
 }
 ```
+
+## Fix it
+
+The generic function revealed another defect. Fixing that reveals yet another bug that can be fixed. Compile and run and the search should work.

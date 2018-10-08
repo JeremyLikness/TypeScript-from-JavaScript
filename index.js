@@ -55,7 +55,7 @@ var find = function (list, test) {
     }
     return null;
 };
-var found = find(rolodex, function (contact) { return contact.Name === "Doreen"; });
+var found = find(rolodex.contacts, function (contact) { return contact.name === "Doreen"; });
 if (found) {
     console.log("\n\nFound something:");
     found.print();

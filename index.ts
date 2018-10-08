@@ -54,7 +54,7 @@ const find = <T>(list: T[], test: (item: T) => boolean) => {
     return null;
 }
 
-const found = find(rolodex, contact => contact.Name === "Doreen");
+const found = find(rolodex.contacts, contact => contact.name === "Doreen");
 
 if (found) {
     console.log("\n\nFound something:");
