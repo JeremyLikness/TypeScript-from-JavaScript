@@ -88,4 +88,31 @@ Next, create a type called `Phone` that allows a value of either `mobile` or `ho
 
 ## Lambdas, let, and string interpolation
 
+`git checkout 3be05fe`
+
 Lambda expressions help by automatically preserving the reference to `this` and pass it to subsequent nested expressions so there are not unexpected side effects. The `let` keyword indicates a variable is indeed local, and TypeScript will generate additional code for it to behave properly in closure situations to preserve the intended scope. Finally, string interpolation makes it easier to read concatenated strings in the source. It is leveraged as a native feature in modern JavaScript and turned back to "string addition" for older JavaScript.
+
+## Find
+
+Add a "find" function to search the contacts and return an example. The initial implementation fails to find anything. Paste this code, compile and run it: 
+
+```javascript
+const find = (list, test) => {
+    for (let idx = 0; idx < list.length; idx += 1) {
+        if (test(list[idx])) {
+            return list[idx];
+        }
+    }
+    return null;
+}
+
+const found = find(rolodex, contact => contact.Name === "Doreen");
+
+if (found) {
+    console.log("\n\nFound something:");
+    found.print();
+}
+else {
+    console.log("\n\nNot found!");
+}
+```
