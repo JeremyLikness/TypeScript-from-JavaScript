@@ -6,38 +6,41 @@ delay(function() {
     console.log("\n\nDEBUG INFO:");
 });
 
-function Contact(name, age, contactType, phoneNumber) {
-    this.name = name;
-    this.age = age;
-    this.contactType = contactType;
-    this.phoneNumber = phoneNumber;
-}
+class Contact {
+    constructor(
+        public name: string, 
+        public age: number, 
+        public contactType: string, 
+        public phoneNumber: string) {}
 
-Contact.prototype.print = function () {
-    console.log(this.name);
-    console.log(this.age);
-    if (this.contactType === "mobile") {
-        console.log("Cell phone:");
+    print() {
+        console.log(this.name);
+        console.log(this.age);
+        if (this.contactType === "mobile") {
+            console.log("Cell phone:");
+        }
+        else {
+            console.log("Landline:");
+        }
+        console.log(this.contactNumber);
     }
-    else {
-        console.log("Landline:");
+}
+
+class ContactList {
+    contacts: Contact[];
+    constructor(...contacts: Contact[]) {
+        this.contacts = contacts;
     }
-    console.log(this.contactNumber);
-}
-
-function ContactList(...contacts) {
-    this.contacts = contacts;
-}
-
-ContactList.prototype.print = function () {
-    delay(function () { 
-        console.log("About to print ...");
-    });
-    for (var idx = 0; idx < this.contacts.length; idx += 1) {
-        delay(function () {
-            console.log("Printing contact " + idx);
+    print () {
+        delay(function () { 
+            console.log("About to print ...");
         });
-        this.contacts[idx].print();
+        for (var idx = 0; idx < this.contacts.length; idx += 1) {
+            delay(function () {
+                console.log("Printing contact " + idx);
+            });
+            this.contacts[idx].print();
+        }
     }
 }
 
