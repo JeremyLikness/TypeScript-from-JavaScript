@@ -1,9 +1,5 @@
-function delay(fn) {
-    setTimeout(fn, 0);
-}
-delay(function () {
-    console.log("\n\nDEBUG INFO:");
-});
+var delay = function (fn) { return setTimeout(fn, 0); };
+delay(function () { return console.log("\n\nDEBUG INFO:"); });
 var Contact = /** @class */ (function () {
     function Contact(name, age, contactType, contactNumber) {
         this.name = name;
@@ -33,14 +29,16 @@ var ContactList = /** @class */ (function () {
         this.contacts = contacts;
     }
     ContactList.prototype.print = function () {
-        delay(function () {
-            console.log("About to print ...");
-        });
-        for (var idx = 0; idx < this.contacts.length; idx += 1) {
+        delay(function () { return console.log("About to print ..."); });
+        var _loop_1 = function (idx) {
             delay(function () {
                 console.log("Printing contact " + idx);
             });
-            this.contacts[idx].print();
+            this_1.contacts[idx].print();
+        };
+        var this_1 = this;
+        for (var idx = 0; idx < this.contacts.length; idx += 1) {
+            _loop_1(idx);
         }
     };
     return ContactList;

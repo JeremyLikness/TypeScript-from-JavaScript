@@ -80,6 +80,12 @@ TypeScript supports a class definition. For older JavaScript, it will generate t
 
 ## Fix Two Bugs
 
+`git checkout b3974e5`
+
 The first bug is a naming issue. The class defines a property called `phoneNumber` but the print method references `contactNumber`. Change the property to `contactNumber` to be consistent with `contactType`.
 
 Next, create a type called `Phone` that allows a value of either `mobile` or `home`. Change the `contactType` to be of type `Phone` and fix several more defects. Now when you compile and run it should print as expected, except for the debug information.
+
+## Lambdas, let, and string interpolation
+
+Lambda expressions help by automatically preserving the reference to `this` and pass it to subsequent nested expressions so there are not unexpected side effects. The `let` keyword indicates a variable is indeed local, and TypeScript will generate additional code for it to behave properly in closure situations to preserve the intended scope. Finally, string interpolation makes it easier to read concatenated strings in the source. It is leveraged as a native feature in modern JavaScript and turned back to "string addition" for older JavaScript.

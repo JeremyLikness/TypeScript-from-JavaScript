@@ -1,10 +1,6 @@
-function delay(fn) {
-    setTimeout(fn, 0);
-}
+const delay = fn => setTimeout(fn, 0); 
 
-delay(function() {
-    console.log("\n\nDEBUG INFO:");
-});
+delay(() => console.log("\n\nDEBUG INFO:"));
 
 type Phone = 'home' | 'mobile';
 
@@ -34,12 +30,10 @@ class ContactList {
         this.contacts = contacts;
     }
     print () {
-        delay(function () { 
-            console.log("About to print ...");
-        });
-        for (var idx = 0; idx < this.contacts.length; idx += 1) {
-            delay(function () {
-                console.log("Printing contact " + idx);
+        delay(() => console.log("About to print ..."));
+        for (let idx = 0; idx < this.contacts.length; idx += 1) {
+            delay(() => {
+                console.log(`Printing contact ${idx}`);
             });
             this.contacts[idx].print();
         }
