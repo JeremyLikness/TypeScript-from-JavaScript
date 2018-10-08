@@ -45,12 +45,12 @@ const myWife = new Contact("Doreen", 30, "home", "404-123-4567");
 const rolodex = new ContactList(me, myWife);
 rolodex.print();
 
-const find = (list, test) => {
+const find = <T>(list: T[], test: (item: T) => boolean) => {
     for (let idx = 0; idx < list.length; idx += 1) {
         if (test(list[idx])) {
             return list[idx];
         }
-    }    
+    }
     return null;
 }
 

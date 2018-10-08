@@ -116,3 +116,18 @@ else {
     console.log("\n\nNot found!");
 }
 ```
+
+## The Power of Generics
+
+Generics help by creating a template for a type, then providing hints and type-checking for that type. To see this in action, refactor the `find` function to use generics. Immediately a bug is revealed.
+
+```TypeScript
+const find = <T>(list: T[], test: (item: T) => boolean) => {
+    for (let idx = 0; idx < list.length; idx += 1) {
+        if (test(list[idx])) {
+            return list[idx];
+        }
+    }
+    return null;
+}
+```
