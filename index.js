@@ -15,7 +15,13 @@ var PrintRecursive = function (parent, children) {
 };
 var firstUpper = function (inp) { return "" + inp.charAt(0).toLocaleUpperCase() + inp.slice(1); };
 var printProperty = function (key, contact) {
-    console.log(firstUpper(key) + ": " + contact[key]);
+    var value = contact[key];
+    if (typeof value === 'number') {
+        console.log(firstUpper(key) + ": " + value.toFixed(0));
+    }
+    else {
+        console.log(firstUpper(key) + ": " + value);
+    }
 };
 var Contact = /** @class */ (function () {
     function Contact(name, age, contactType, contactNumber) {

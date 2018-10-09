@@ -34,7 +34,13 @@ const firstUpper = (inp: string) => `${inp.charAt(0).toLocaleUpperCase()}${inp.s
 type ContactProperty = keyof IAmContact;
 
 const printProperty = (key: ContactProperty, contact: IAmContact) => {
-    console.log(`${firstUpper(key)}: ${contact[key]}`);
+    let value = contact[key];
+    if (typeof value === 'number') {
+        console.log(`${firstUpper(key)}: ${value.toFixed(0)}`);
+    }
+    else {
+        console.log(`${firstUpper(key)}: ${value}`);
+    }
 }
 
 class Contact implements IAmContact, ICanPrint {

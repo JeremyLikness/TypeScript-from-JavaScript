@@ -199,4 +199,10 @@ A bug was purposefully introduced: name shows `undefined`. The next iteration wi
 
 ## Key types
 
+`git checkout df156fc`
+
 Create a type named `ContactProperty` that uses `keyof` to fix the `printProperty` function. The defect is immediately apparent and can be fixed.
+
+## Type guards
+
+Type guards allow IntelliSense to operate on a code block based on logic that enforces a type within the block. Update the `printProperty` function to check for a numeric type and print it fixed (without the decimal).
