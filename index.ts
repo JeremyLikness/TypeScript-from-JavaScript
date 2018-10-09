@@ -9,8 +9,6 @@ interface ICanPrint {
     print(): void;
 }
 
-type Children = <T extends ICanPrint>(parent: T) => ICanPrint[];
-
 const PrintRecursive = <T extends ICanPrint>(parent: T, children?: (parent: T) => ICanPrint[]) => {
     delayDebug("Printing parent...");
     parent.print();
@@ -31,6 +29,12 @@ interface IAmContact {
     contactNumber: string;
 }
 
+const firstUpper = (inp: string) => `${inp.charAt(0).toLocaleUpperCase()}${inp.slice(1)}`;
+
+const printProperty = (key, contact: IAmContact) => {
+    console.log(`${firstUpper(key)}: ${contact[key]}`);
+}
+
 class Contact implements IAmContact, ICanPrint {
     constructor(
         public name: string, 
@@ -39,15 +43,15 @@ class Contact implements IAmContact, ICanPrint {
         public contactNumber: string) {}
 
     print() {
-        console.log(this.name);
-        console.log(this.age);
+        printProperty("Name", this);
+        printProperty("age", this);
         if (this.contactType === "mobile") {
             console.log("Cell phone:");
         }
         else {
             console.log("Landline:");
         }
-        console.log(this.contactNumber);
+        printProperty("contactNumber", this);
     }
 }
 
@@ -72,7 +76,7 @@ const rolodex = new ContactList(me, myWife);
 console.log("\n\nNormal print:");
 PrintRecursive(rolodex);
 
-console.log("\n\nPrint with recurisve:");
+console.log("\n\nPrint with recursive:");
 PrintRecursive(rolodex, rolodex => rolodex.contacts);
 
 type Predicate<T> = (item: T) => boolean;

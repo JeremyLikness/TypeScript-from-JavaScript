@@ -148,4 +148,49 @@ Create a type called "predicate" to simplify the definition of find. Note this d
 
 ## Interfaces and optional parameters
 
+`git checkout c27d282`
+
 Interfaces help describe types. Refactor to use interfaces. Add a `PrintRecursive` helper function with an optional parameter. Also make debugging easier with a delayDebug function.
+
+```TypeScript
+const PrintRecursive = <T extends ICanPrint>(parent: T, children?: (parent: T) => ICanPrint[]) => {
+    delayDebug("Printing parent...");
+    parent.print();
+    if (children) {
+        delayDebug("Printing children...");
+        const printJobs = children(parent);
+        for (let idx = 0; idx < printJobs.length; idx += 1) {
+            delayDebug(`Printing child at index ${idx}`);
+            PrintRecursive(printJobs[idx]);
+        }
+    }
+}
+```
+
+## Formatting
+
+Add a simple function to help with printing contact info so it can print in label: value fashion.
+
+```TypeScript
+const firstUpper = (inp: string) => `${inp.charAt(0).toLocaleUpperCase()}${inp.slice(1)}`;
+
+const printProperty = (key, contact: IAmContact) => {
+    console.log(`${firstUpper(key)}: ${contact[key]}`);
+}
+
+// on contact class print() function
+
+print() {
+    printProperty("Name", this);
+    printProperty("age", this);
+    if (this.contactType === "mobile") {
+        console.log("Cell phone:");
+    }
+    else {
+        console.log("Landline:");
+    }
+    printProperty("contactNumber", this);
+}
+```
+
+A bug was purposefully introduced: name shows `undefined`. The next iteration will catch and fix that.

@@ -13,6 +13,10 @@ var PrintRecursive = function (parent, children) {
         }
     }
 };
+var firstUpper = function (inp) { return "" + inp.charAt(0).toLocaleUpperCase() + inp.slice(1); };
+var printProperty = function (key, contact) {
+    console.log(firstUpper(key) + ": " + contact[key]);
+};
 var Contact = /** @class */ (function () {
     function Contact(name, age, contactType, contactNumber) {
         this.name = name;
@@ -21,15 +25,15 @@ var Contact = /** @class */ (function () {
         this.contactNumber = contactNumber;
     }
     Contact.prototype.print = function () {
-        console.log(this.name);
-        console.log(this.age);
+        printProperty("Name", this);
+        printProperty("age", this);
         if (this.contactType === "mobile") {
             console.log("Cell phone:");
         }
         else {
             console.log("Landline:");
         }
-        console.log(this.contactNumber);
+        printProperty("contactNumber", this);
     };
     return Contact;
 }());
@@ -51,7 +55,7 @@ var myWife = new Contact("Doreen", 30, "home", "404-123-4567");
 var rolodex = new ContactList(me, myWife);
 console.log("\n\nNormal print:");
 PrintRecursive(rolodex);
-console.log("\n\nPrint with recurisve:");
+console.log("\n\nPrint with recursive:");
 PrintRecursive(rolodex, function (rolodex) { return rolodex.contacts; });
 var find = function (list, test) {
     for (var idx = 0; idx < list.length; idx += 1) {
