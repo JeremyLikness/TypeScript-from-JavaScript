@@ -1,5 +1,18 @@
 var delay = function (fn) { return setTimeout(fn, 0); };
-delay(function () { return console.log("\n\nDEBUG INFO:"); });
+var delayDebug = function (str) { return delay(function () { return console.log(str); }); };
+delayDebug("\n\nDEBUG INFO:");
+var PrintRecursive = function (parent, children) {
+    delayDebug("Printing parent...");
+    parent.print();
+    if (children) {
+        delayDebug("Printing children...");
+        var printJobs = children(parent);
+        for (var idx = 0; idx < printJobs.length; idx += 1) {
+            delayDebug("Printing child at index " + idx);
+            PrintRecursive(printJobs[idx]);
+        }
+    }
+};
 var Contact = /** @class */ (function () {
     function Contact(name, age, contactType, contactNumber) {
         this.name = name;
@@ -29,24 +42,17 @@ var ContactList = /** @class */ (function () {
         this.contacts = contacts;
     }
     ContactList.prototype.print = function () {
-        delay(function () { return console.log("About to print ..."); });
-        var _loop_1 = function (idx) {
-            delay(function () {
-                console.log("Printing contact " + idx);
-            });
-            this_1.contacts[idx].print();
-        };
-        var this_1 = this;
-        for (var idx = 0; idx < this.contacts.length; idx += 1) {
-            _loop_1(idx);
-        }
+        console.log("A rolodex with " + this.contacts.length + " contacts");
     };
     return ContactList;
 }());
 var me = new Contact("Jeremy", 44.1, "mobile", "555-1212");
 var myWife = new Contact("Doreen", 30, "home", "404-123-4567");
 var rolodex = new ContactList(me, myWife);
-rolodex.print();
+console.log("\n\nNormal print:");
+PrintRecursive(rolodex);
+console.log("\n\nPrint with recurisve:");
+PrintRecursive(rolodex, function (rolodex) { return rolodex.contacts; });
 var find = function (list, test) {
     for (var idx = 0; idx < list.length; idx += 1) {
         if (test(list[idx])) {

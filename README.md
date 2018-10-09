@@ -142,4 +142,10 @@ The generic function revealed another defect. Fixing that reveals yet another bu
 
 ## Simplify it
 
-Create a type called "predicate" to simplify the definition of find. Note this doesn't change the compiled JavaScript at all. 
+`git checkout 9ceda1c`
+
+Create a type called "predicate" to simplify the definition of find. Note this doesn't change the compiled JavaScript at all.
+
+## Interfaces and optional parameters
+
+Interfaces help describe types. Refactor to use interfaces. Add a `PrintRecursive` helper function with an optional parameter. Also make debugging easier with a delayDebug function.

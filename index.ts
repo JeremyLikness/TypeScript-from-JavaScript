@@ -1,10 +1,37 @@
-const delay = fn => setTimeout(fn, 0); 
+const delay = fn => setTimeout(fn, 0);
+const delayDebug = str => delay(() => console.log(str)); 
 
-delay(() => console.log("\n\nDEBUG INFO:"));
+delayDebug("\n\nDEBUG INFO:");
 
 type Phone = 'home' | 'mobile';
 
-class Contact {
+interface ICanPrint {
+    print(): void;
+}
+
+type Children = <T extends ICanPrint>(parent: T) => ICanPrint[];
+
+const PrintRecursive = <T extends ICanPrint>(parent: T, children?: (parent: T) => ICanPrint[]) => {
+    delayDebug("Printing parent...");
+    parent.print();
+    if (children) {
+        delayDebug("Printing children...");
+        const printJobs = children(parent);
+        for (let idx = 0; idx < printJobs.length; idx += 1) {
+            delayDebug(`Printing child at index ${idx}`);
+            PrintRecursive(printJobs[idx]);
+        }
+    }
+}
+
+interface IAmContact {
+    name: string;
+    age: number;
+    contactType: Phone;
+    contactNumber: string;
+}
+
+class Contact implements IAmContact, ICanPrint {
     constructor(
         public name: string, 
         public age: number, 
@@ -24,26 +51,29 @@ class Contact {
     }
 }
 
-class ContactList {
+interface IAmContactList {
+    contacts: Contact[];
+}
+
+class ContactList implements IAmContactList, ICanPrint {
     contacts: Contact[];
     constructor(...contacts: Contact[]) {
         this.contacts = contacts;
     }
     print () {
-        delay(() => console.log("About to print ..."));
-        for (let idx = 0; idx < this.contacts.length; idx += 1) {
-            delay(() => {
-                console.log(`Printing contact ${idx}`);
-            });
-            this.contacts[idx].print();
-        }
+        console.log(`A rolodex with ${this.contacts.length} contacts`);
     }
 }
 
 const me = new Contact("Jeremy", 44.1, "mobile", "555-1212");
 const myWife = new Contact("Doreen", 30, "home", "404-123-4567");
 const rolodex = new ContactList(me, myWife);
-rolodex.print();
+
+console.log("\n\nNormal print:");
+PrintRecursive(rolodex);
+
+console.log("\n\nPrint with recurisve:");
+PrintRecursive(rolodex, rolodex => rolodex.contacts);
 
 type Predicate<T> = (item: T) => boolean;
 
