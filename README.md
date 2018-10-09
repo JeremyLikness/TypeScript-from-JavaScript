@@ -94,7 +94,7 @@ Lambda expressions help by automatically preserving the reference to `this` and 
 
 ## Find
 
-Add a "find" function to search the contacts and return an example. The initial implementation fails to find anything. Paste this code, compile and run it: 
+Add a "find" function to search the contacts and return an example. The initial implementation fails to find anything. Paste this code, compile and run it:
 
 ```javascript
 const find = (list, test) => {
@@ -205,4 +205,46 @@ Create a type named `ContactProperty` that uses `keyof` to fix the `printPropert
 
 ## Type guards
 
+`git checkout 733725b`
+
 Type guards allow IntelliSense to operate on a code block based on logic that enforces a type within the block. Update the `printProperty` function to check for a numeric type and print it fixed (without the decimal).
+
+## Bonus: Strict typing and decorators
+
+Decorators make it easier to write a behavior once and apply it multiple times. The following code blocks include a helper method to grab the name of a function, a decorate for a constructor, and a decorator to "debug" a method call. Apply them liberally to classes and methods to see the results. Just place `@logLifeCycle` on a class definition or `@debug` before a method definition. The support for experimental decorators and metadata must be set to `true` in `tsconfig.json`.
+
+A static method is added to calculate approximate year born and called from the `print` method to demonstrate interception of arguments and return values.
+
+Turn on strict typing and refactor a few methods that don't have explicit types.
+
+```TypeScript
+const getFnName = (fn: Function) => {
+    let funcText = fn.toString();
+    let trimmed = funcText.substr('function '.length);
+    let name = trimmed.substr(0, trimmed.indexOf('('));
+    return name.trim();
+};
+
+function logLifecycle<T extends {new(...args:any[]):{}}>(constructor:T) {
+    class newCtor extends constructor {
+        constructor(...args: any[]) {
+            super(args);
+            delay(() => console.log(`Constructed ${getFnName(constructor)} at ${new Date()}`));
+            return constructor.apply(this, args);
+        }
+    }
+    newCtor.prototype = constructor.prototype;
+    return newCtor;
+}
+
+function debug(_target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+    let originalMethod = descriptor.value; // save a reference to the original method
+    descriptor.value = function (...args: any[]) {
+        delay(() => console.info(`The method args for ${propertyKey}() are: ${JSON.stringify(args)}`)); // pre
+        var result = originalMethod.apply(this, args);               // run and store the result
+        delay(() => console.info(`The return value for ${propertyKey}() is: ${result}`));               // post
+        return result;                                               // return the result of the original method
+    };
+    return descriptor;
+}
+```

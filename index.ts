@@ -1,7 +1,37 @@
-const delay = fn => setTimeout(fn, 0);
-const delayDebug = str => delay(() => console.log(str)); 
+const delay = (fn: Function) => setTimeout(fn, 0);
+const delayDebug = (str: string) => delay(() => console.log(str)); 
 
 delayDebug("\n\nDEBUG INFO:");
+
+const getFnName = (fn: Function) => {
+    let funcText = fn.toString();
+    let trimmed = funcText.substr('function '.length);
+    let name = trimmed.substr(0, trimmed.indexOf('('));
+    return name.trim();
+};
+
+function logLifecycle<T extends {new(...args:any[]):{}}>(constructor:T) {
+    class newCtor extends constructor {
+        constructor(...args: any[]) {
+            super(args);
+            delay(() => console.log(`Constructed ${getFnName(constructor)} at ${new Date()}`));
+            return constructor.apply(this, args);
+        }
+    }
+    newCtor.prototype = constructor.prototype;
+    return newCtor;
+}
+        
+function debug(_target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+    let originalMethod = descriptor.value; // save a reference to the original method
+    descriptor.value = function (...args: any[]) {
+        delay(() => console.info(`The method args for ${propertyKey}() are: ${JSON.stringify(args)}`)); // pre
+        var result = originalMethod.apply(this, args);               // run and store the result
+        delay(() => console.info(`The return value for ${propertyKey}() is: ${result}`));               // post
+        return result;                                               // return the result of the original method
+    };
+    return descriptor;
+}
 
 type Phone = 'home' | 'mobile';
 
@@ -43,6 +73,7 @@ const printProperty = (key: ContactProperty, contact: IAmContact) => {
     }
 }
 
+@logLifecycle
 class Contact implements IAmContact, ICanPrint {
     constructor(
         public name: string, 
@@ -50,9 +81,11 @@ class Contact implements IAmContact, ICanPrint {
         public contactType: Phone, 
         public contactNumber: string) {}
 
+    @debug
     print() {
         printProperty("name", this);
         printProperty("age", this);
+        console.log(Contact.calculateYearBorn(this.age));
         if (this.contactType === "mobile") {
             console.log("Cell phone:");
         }
@@ -61,17 +94,24 @@ class Contact implements IAmContact, ICanPrint {
         }
         printProperty("contactNumber", this);
     }
+    @debug
+    public static calculateYearBorn(age: number): string {
+        let thisYear = (new Date()).getFullYear();
+        return `Born around the year ${(thisYear - age).toFixed(0)}`;
+    }
 }
 
 interface IAmContactList {
     contacts: Contact[];
 }
 
+@logLifecycle
 class ContactList implements IAmContactList, ICanPrint {
     contacts: Contact[];
     constructor(...contacts: Contact[]) {
         this.contacts = contacts;
     }
+    @debug
     print () {
         console.log(`A rolodex with ${this.contacts.length} contacts`);
     }
