@@ -4,6 +4,17 @@ This is a project you can walk through commit-by-commit to see the transformatio
 
 [@JeremyLikness](https://twitter.com/JeremyLikness)
 
+Background notes:
+
+* 1995: Mocha becomes LiveScript, written in 10 days
+* 1996: JavaScript lives!
+* 1997: ECMAScript 1 sets standards
+* 1999: ECMAScript 3
+* 2005: jQuery "Normalize the DOM"
+* 2009: Node.js, ECMAScript 5
+* 2012: TypeScript (and there was much rejoicing)
+* 2015: ECMAScript 2015 ("Harmony")
+
 ## Intro
 
 `git checkout d65aed6`
@@ -211,6 +222,8 @@ Type guards allow IntelliSense to operate on a code block based on logic that en
 
 ## Bonus: Strict typing and decorators
 
+`git checkout df156fc`
+
 Decorators make it easier to write a behavior once and apply it multiple times. The following code blocks include a helper method to grab the name of a function, a decorate for a constructor, and a decorator to "debug" a method call. Apply them liberally to classes and methods to see the results. Just place `@logLifeCycle` on a class definition or `@debug` before a method definition. The support for experimental decorators and metadata must be set to `true` in `tsconfig.json`.
 
 A static method is added to calculate approximate year born and called from the `print` method to demonstrate interception of arguments and return values.
@@ -248,3 +261,7 @@ function debug(_target: Object, propertyKey: string, descriptor: TypedPropertyDe
     return descriptor;
 }
 ```
+
+## PostScript
+
+This version illustrates output using a more modern JavaScript version. The target was changed in `tsconfig.json` to `es2018`. Note that the constructor decorate had to also be modified to use the new `Proxy` object.

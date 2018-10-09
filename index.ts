@@ -11,15 +11,13 @@ const getFnName = (fn: Function) => {
 };
 
 function logLifecycle<T extends {new(...args:any[]):{}}>(constructor:T) {
-    class newCtor extends constructor {
-        constructor(...args: any[]) {
-            super(args);
+    let _new = new Proxy(constructor, {
+        apply(target, _thisArg, argumentsList) {
             delay(() => console.log(`Constructed ${getFnName(constructor)} at ${new Date()}`));
-            return constructor.apply(this, args);
+            return new target(...argumentsList);
         }
-    }
-    newCtor.prototype = constructor.prototype;
-    return newCtor;
+    });
+    return _new;
 }
         
 function debug(_target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
