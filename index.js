@@ -25,7 +25,7 @@ var Contact = /** @class */ (function () {
         this.contactNumber = contactNumber;
     }
     Contact.prototype.print = function () {
-        printProperty("Name", this);
+        printProperty("name", this);
         printProperty("age", this);
         if (this.contactType === "mobile") {
             console.log("Cell phone:");

@@ -169,6 +169,8 @@ const PrintRecursive = <T extends ICanPrint>(parent: T, children?: (parent: T) =
 
 ## Formatting
 
+`git checkout 7861a91`
+
 Add a simple function to help with printing contact info so it can print in label: value fashion.
 
 ```TypeScript
@@ -194,3 +196,7 @@ print() {
 ```
 
 A bug was purposefully introduced: name shows `undefined`. The next iteration will catch and fix that.
+
+## Key types
+
+Create a type named `ContactProperty` that uses `keyof` to fix the `printProperty` function. The defect is immediately apparent and can be fixed.

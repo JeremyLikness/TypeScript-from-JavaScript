@@ -31,7 +31,9 @@ interface IAmContact {
 
 const firstUpper = (inp: string) => `${inp.charAt(0).toLocaleUpperCase()}${inp.slice(1)}`;
 
-const printProperty = (key, contact: IAmContact) => {
+type ContactProperty = keyof IAmContact;
+
+const printProperty = (key: ContactProperty, contact: IAmContact) => {
     console.log(`${firstUpper(key)}: ${contact[key]}`);
 }
 
@@ -43,7 +45,7 @@ class Contact implements IAmContact, ICanPrint {
         public contactNumber: string) {}
 
     print() {
-        printProperty("Name", this);
+        printProperty("name", this);
         printProperty("age", this);
         if (this.contactType === "mobile") {
             console.log("Cell phone:");
