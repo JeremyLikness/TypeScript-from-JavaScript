@@ -136,4 +136,10 @@ const find = <T>(list: T[], test: (item: T) => boolean) => {
 
 ## Fix it
 
+`git checkout b1aae76`
+
 The generic function revealed another defect. Fixing that reveals yet another bug that can be fixed. Compile and run and the search should work.
+
+## Simplify it
+
+Create a type called "predicate" to simplify the definition of find. Note this doesn't change the compiled JavaScript at all. 
