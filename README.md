@@ -105,6 +105,8 @@ Lambda expressions help by automatically preserving the reference to `this` and 
 
 ## Find
 
+`git checkout 788d493`
+
 Add a "find" function to search the contacts and return an example. The initial implementation fails to find anything. Paste this code, compile and run it:
 
 ```javascript
