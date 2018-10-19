@@ -103,6 +103,8 @@ Next, create a type called `Phone` that allows a value of either `mobile` or `ho
 
 Lambda expressions help by automatically preserving the reference to `this` and pass it to subsequent nested expressions so there are not unexpected side effects. The `let` keyword indicates a variable is indeed local, and TypeScript will generate additional code for it to behave properly in closure situations to preserve the intended scope. Finally, string interpolation makes it easier to read concatenated strings in the source. It is leveraged as a native feature in modern JavaScript and turned back to "string addition" for older JavaScript.
 
+*** (Add a reference to `this.contacts` for more insight into the lambdas).
+
 ## Find
 
 `git checkout 788d493`
